@@ -109,4 +109,7 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="schedule_button">Schedule</string>
+    <string name="location_setting">Location Services</string>
+    <string name="notification_setting">Notifications</string>
+    <string name="theme_setting">Dark Theme</string>
 </resources>
