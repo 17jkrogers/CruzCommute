@@ -15,15 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".CommuteScrollList"
-            android:label="@string/title_activity_commute_scroll_list"
-            android:parentActivityName=".MapsActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.group25.cruzcommute.MapsActivity" />
-        </activity>
+        <activity android:name=".ScheduleActivity"></activity>
         <activity
             android:name=".CommuteSettings"
             android:label="@string/title_activity_commute_settings"

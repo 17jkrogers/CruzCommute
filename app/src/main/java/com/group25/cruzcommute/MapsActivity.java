@@ -53,7 +53,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void onScheduleClicked(View v){
-        Intent scheduleIntent = new Intent(this, CommuteScrollList.class);
+        Intent scheduleIntent = new Intent(this, ScheduleActivity.class);
         startActivity(scheduleIntent);
     }
 }
