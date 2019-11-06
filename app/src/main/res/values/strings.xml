@@ -112,4 +112,7 @@
     <string name="location_setting">Location Services</string>
     <string name="notification_setting">Notifications</string>
     <string name="theme_setting">Dark Theme</string>
+    <string name="route_num">Route</string>
+    <string name="avg_slowdown">Slowdown</string>
+    <string name="congestion">Congestion</string>
 </resources>
