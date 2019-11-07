@@ -43,8 +43,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Santa Cruz and move the camera
         LatLng santa_cruz = new LatLng(36.974117, -122.030792);
+        float zoom = 14.0f;
         mMap.addMarker(new MarkerOptions().position(santa_cruz).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(santa_cruz));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(santa_cruz, zoom));
     }
 
     public void onSettingsClicked(View v){
