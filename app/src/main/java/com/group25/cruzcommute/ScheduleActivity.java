@@ -37,4 +37,7 @@ public class ScheduleActivity extends AppCompatActivity {
         RouteAdapter adapter = new RouteAdapter(this, R.layout.route_list, routeList);
         routeView.setAdapter(adapter);
     }
+
+    public void transferReportActivity(View view) {
+    }
 }

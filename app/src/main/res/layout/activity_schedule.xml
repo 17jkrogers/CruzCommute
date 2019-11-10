@@ -54,4 +54,16 @@
         android:dividerHeight="1dp">
     </ListView>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/report_button"
+        android:text="@string/report"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="15dp"
+        android:onClick="transferReportActivity">
+    </Button>
+
 </RelativeLayout>
