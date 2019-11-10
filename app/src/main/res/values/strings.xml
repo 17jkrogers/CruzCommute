@@ -115,4 +115,11 @@
     <string name="route_num">Route</string>
     <string name="avg_slowdown">Slowdown</string>
     <string name="congestion">Congestion</string>
+    <string name="settings_descriptor">The button to the settings.</string>
+    <string name="low">Low</string>
+    <string name="moderate">Moderate</string>
+    <string name="high">High</string>
+    <string name="report">Report</string>
+    <string name="route_question">Select a route</string>
+    <string name="submit">Submit Report</string>
 </resources>

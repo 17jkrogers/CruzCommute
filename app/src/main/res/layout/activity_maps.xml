@@ -27,7 +27,8 @@
         android:onClick="onSettingsClicked"
         />
 
-    <Button
+    <ImageButton
+        android:contentDescription="@string/settings_descriptor"
         android:id="@+id/schedule_button"
         android:layout_marginTop="8dp"
         android:layout_marginStart="301dp"
@@ -36,7 +37,7 @@
         android:layout_width="match_parent"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/schedule_button"
+        android:src="@drawable/ic_settings_black_24dp"
         android:onClick="onScheduleClicked"
         />
 
