@@ -39,5 +39,7 @@ public class ScheduleActivity extends AppCompatActivity {
     }
 
     public void transferReportActivity(View view) {
+        Intent intent = new Intent(this, ReportActivity.class);
+        startActivity(intent);
     }
 }
