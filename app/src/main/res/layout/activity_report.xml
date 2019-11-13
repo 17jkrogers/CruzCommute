@@ -20,7 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/route_question"
-            android:textSize="24sp">
+            android:textSize="24sp"
+            android:textColor="@color/dividerColor">
         </TextView>
         <Spinner
             android:layout_weight="1"
@@ -42,7 +43,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/congestion_question"
-            android:textSize="24sp">
+            android:textSize="24sp"
+            android:textColor="@color/dividerColor">
         </TextView>
 
         <RadioGroup
@@ -57,21 +59,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/low"
-                android:textSize="24sp">
+                android:textSize="24sp"
+                android:textColor="@color/dividerColor">
             </RadioButton>
             <RadioButton
                 android:id="@+id/modCongButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/moderate"
-                android:textSize="24sp">
+                android:textSize="24sp"
+                android:textColor="@color/dividerColor">
             </RadioButton>
             <RadioButton
                 android:id="@+id/highCongButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/high"
-                android:textSize="24sp">
+                android:textSize="24sp"
+                android:textColor="@color/dividerColor">
             </RadioButton>
         </RadioGroup>
 
