@@ -28,6 +28,9 @@ public class ReportActivity extends AppCompatActivity {
         routeNums.add(0, 15);
         routeNums.add(1, 16);
         routeNums.add(2, 19);
+        routeNums.add(3, 10);
+        routeNums.add(4, 20);
+        routeNums.add(5, 22);
 
         adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, routeNums);
 
