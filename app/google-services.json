@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "46132397486",
+    "firebase_url": "https://cruzcommute.firebaseio.com",
+    "project_id": "cruzcommute",
+    "storage_bucket": "cruzcommute.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46132397486:android:2d22d963e5af04b8e9f43f",
+        "android_client_info": {
+          "package_name": "com.group25.cruzcommute"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "46132397486-9vuitgq9m66mgnogki8kbeh1foor7afn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.group25.cruzcommute",
+            "certificate_hash": "db9afbe40df10bc87660e0b87a7ec8bf293e02f8"
+          }
+        },
+        {
+          "client_id": "46132397486-spp62069hda4833sj4udtr734q5tnps0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQU_8pHdwbWT1CwO-eVWqS_FYnMYSekTM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "46132397486-spp62069hda4833sj4udtr734q5tnps0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
