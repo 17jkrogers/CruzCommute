@@ -40,4 +40,8 @@ public class ReportActivity extends AppCompatActivity {
     public void onReportClicked(View view) {
         Toast.makeText(this, "Thank you for submitting your report!", Toast.LENGTH_LONG).show();
     }
+
+    /* TODO: Keyton
+    Add code to store report data to the firebase. Collaborate with Danyal to get exact formatting.
+     */
 }
