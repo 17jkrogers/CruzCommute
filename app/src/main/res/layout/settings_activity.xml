@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Switch
+        android:id="@+id/location_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="45dp"
+        android:layout_alignParentRight="true"/>
+
+    <Switch
+        android:id="@+id/notifications_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="45dp"
+        android:layout_alignStart="@+id/location_switch"/>
+
+    <Switch
+        android:id="@+id/theme_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="45dp"
+        android:layout_alignStart="@+id/notifications_switch"/>
+
+    <TextView
+        android:id="@+id/location_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_alignBottom="@+id/location_switch"
+        android:text="@string/location_setting"
+        android:textSize="20sp"
+        android:textColor="@color/dividerColor"/>
+
+    <TextView
+        android:id="@+id/notification_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="30dp"
+        android:layout_alignBottom="@+id/notifications_switch"
+        android:text="@string/notification_setting"
+        android:textSize="20sp"
+        android:textColor="@color/dividerColor"/>
+
+    <TextView
+        android:id="@+id/theme_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="130dp"
+        android:layout_marginStart="30dp"
+        android:layout_alignBottom="@+id/theme_switch"
+        android:text="@string/theme_setting"
+        android:textSize="20sp"
+        android:textColor="@color/dividerColor"/>
+
+</RelativeLayout>
