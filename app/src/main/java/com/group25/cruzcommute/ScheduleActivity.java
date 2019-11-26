@@ -28,12 +28,36 @@ public class ScheduleActivity extends AppCompatActivity {
     private FirebaseDatabase db;
     private ArrayList<Route> routeList;
     ListView routeView;
+    boolean backFromPause = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
+        updateUIList();
+    }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(backFromPause) {
+            updateUIList();
+        }
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        routeList.clear();
+        backFromPause = true;
+    }
+
+    public void transferReportActivity(View view) {
+        Intent intent = new Intent(this, ReportActivity.class);
+        startActivity(intent);
+    }
+
+    public void updateUIList(){
         routeList = new ArrayList<Route>();
 
         db = FirebaseDatabase.getInstance();
@@ -81,16 +105,5 @@ public class ScheduleActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError dbErr) {
             }
         });
-
-
-    }
-
-    public void transferReportActivity(View view) {
-        Intent intent = new Intent(this, ReportActivity.class);
-        startActivity(intent);
-    }
-
-    public void addToList(Route added){
-        routeList.add(added);
     }
 }
