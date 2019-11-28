@@ -77,7 +77,6 @@ public class ReportActivity extends AppCompatActivity {
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Route added;
                 Map<String, Object> vals = (Map<String, Object>) dataSnapshot.getValue();
 
                 for (Map.Entry<String, Object> value : vals.entrySet()) {
@@ -85,7 +84,7 @@ public class ReportActivity extends AppCompatActivity {
                     routeNums.add(routeNum);
                 }
 
-                ArrayAdapter adapter = new ArrayAdapter(ReportActivity.this, android.R.layout.simple_spinner_item, routeNums);
+                adapter = new ArrayAdapter(ReportActivity.this, android.R.layout.simple_spinner_item, routeNums);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                 routeSpinner.setAdapter(adapter);
