@@ -2,9 +2,12 @@ package com.group25.cruzcommute;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -17,13 +20,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Map;
+import java.util.TimeZone;
 
 public class ReportActivity extends AppCompatActivity {
 
-    ArrayList<Integer> routeNums;
-    ArrayAdapter<Integer> adapter;
+    ArrayList<String> routeNums;
+    ArrayAdapter<String> adapter;
     Spinner routeSpinner;
+    FirebaseDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,29 +39,15 @@ public class ReportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_report);
 
         routeSpinner = findViewById(R.id.routeSpinner);
+        updateSpinner();
 
-        routeNums = new ArrayList<Integer>();
-
-        routeNums.add(0, 15);
-        routeNums.add(1, 16);
-        routeNums.add(2, 19);
-        routeNums.add(3, 10);
-        routeNums.add(4, 20);
-        routeNums.add(5, 22);
-
-
-
-        adapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, routeNums);
-
-        routeSpinner.setAdapter(adapter);
     }
 
     public void onReportClicked(View view) {
         String routeStr = routeSpinner.getSelectedItem().toString();
-        int route = Integer.parseInt(routeStr);
 
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        final DatabaseReference ref = db.getReference("route" + route);
+        final DatabaseReference ref = db.getReference("route" + routeStr);
 
         RadioGroup selector = findViewById(R.id.congestionGroup);
         RadioButton selected = findViewById(selector.getCheckedRadioButtonId());
@@ -73,7 +67,33 @@ public class ReportActivity extends AppCompatActivity {
         Toast.makeText(this, "Thank you for submitting your report!", Toast.LENGTH_LONG).show();
     }
 
-    /* TODO: Keyton
-    Add code to store report data to the firebase. Collaborate with Danyal to get exact formatting.
-     */
+
+    public void updateSpinner(){
+        routeNums = new ArrayList<String>();
+
+        db = FirebaseDatabase.getInstance();
+        final DatabaseReference dbRef = db.getReference();
+
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Route added;
+                Map<String, Object> vals = (Map<String, Object>) dataSnapshot.getValue();
+
+                for (Map.Entry<String, Object> value : vals.entrySet()) {
+                    String routeNum = value.getKey().substring(value.getKey().indexOf("e") + 1);
+                    routeNums.add(routeNum);
+                }
+
+                ArrayAdapter adapter = new ArrayAdapter(ReportActivity.this, android.R.layout.simple_spinner_item, routeNums);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                routeSpinner.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError dbErr) {
+            }
+        });
+    }
 }
