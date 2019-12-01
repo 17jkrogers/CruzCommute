@@ -1,6 +1,7 @@
 package com.group25.cruzcommute;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +36,11 @@ public class RouteAdapter extends ArrayAdapter<Route> {
         Route route = routeList.get(pos);
 
         routeNum.setText(route.getRouteNum());
+        routeNum.setTextColor(Color.WHITE);
         routeSlow.setText("" + route.getSlowdown());
+        routeSlow.setTextColor(Color.WHITE);
         routeCong.setText(route.getCongestion());
+        routeCong.setTextColor(Color.WHITE);
 
         return mView;
     }
