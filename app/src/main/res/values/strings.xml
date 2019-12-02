@@ -116,11 +116,11 @@
     <string name="avg_slowdown">Slowdown</string>
     <string name="congestion">Congestion</string>
     <string name="settings_descriptor">The button to the settings.</string>
-    <string name="low">Low</string>
-    <string name="moderate">Moderate</string>
-    <string name="high">High</string>
+    <string name="low">LOW</string>
+    <string name="moderate">MODERATE</string>
+    <string name="high">HIGH</string>
     <string name="report">Report</string>
     <string name="route_question">Select a route</string>
     <string name="submit">Submit Report</string>
-    <string name="congestion_question">What is the route\'s congestion level?</string>
+    <string name="congestion_question">Congestion Level</string>
 </resources>

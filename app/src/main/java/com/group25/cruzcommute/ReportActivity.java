@@ -51,7 +51,8 @@ public class ReportActivity extends AppCompatActivity {
 
         RadioGroup selector = findViewById(R.id.congestionGroup);
         RadioButton selected = findViewById(selector.getCheckedRadioButtonId());
-        final String congLevel = selected.getText().toString();
+        String buttonText = selected.getText().toString();
+        final String congLevel = buttonText.substring(0,1) + buttonText.substring(1).toLowerCase();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

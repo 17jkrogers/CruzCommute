@@ -1,97 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
+
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ReportActivity">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="30dp"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="top|center">
-        <TextView
-            android:layout_marginStart="30dp"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/route_question"
-            android:textSize="24sp"
-            android:textColor="@color/dividerColor">
-        </TextView>
-        <Spinner
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="80dp"
-            android:layout_weight="1"
-            android:id="@+id/routeSpinner"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content">
-        </Spinner>
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
-        android:gravity="top|center"
-        android:orientation="vertical">
-        <TextView
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/congestion_question"
-            android:textSize="24sp"
-            android:textColor="@color/dividerColor">
-        </TextView>
 
-        <RadioGroup
-            android:id="@+id/congestionGroup"
-            android:orientation="horizontal"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:checkedButton="@id/lowCongButton"
-            android:layout_marginTop="30dp">
-            <RadioButton
-                android:id="@+id/lowCongButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/low"
-                android:textSize="24sp"
-                android:textColor="@color/dividerColor">
-            </RadioButton>
-            <RadioButton
-                android:id="@+id/modCongButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/moderate"
-                android:textSize="24sp"
-                android:textColor="@color/dividerColor">
-            </RadioButton>
-            <RadioButton
-                android:id="@+id/highCongButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/high"
-                android:textSize="24sp"
-                android:textColor="@color/dividerColor">
-            </RadioButton>
-        </RadioGroup>
+            android:layout_height="match_parent"
+            android:backgroundTint="#00000000"
+            android:visibility="visible"
+            tools:context=".ReportActivity"
+            tools:visibility="visible">
 
-        <Button
-            android:layout_marginTop="50dp"
-            android:id="@+id/reportSubmitButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/submit"
-            android:onClick="onReportClicked">
-        </Button>
-    </LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="130dp"
+                android:elevation="50dp"
+                app:cardBackgroundColor="@color/background"
+                app:cardCornerRadius="9dp"
+                app:cardElevation="100dp">
 
-</FrameLayout>
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="90dp"
+                android:background="@color/background"
+                android:backgroundTint="#B9685A5C"
+                android:fadingEdge="horizontal|vertical|none"
+                android:gravity="top|center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="0dp"
+                    android:background="#00100B2E"
+                    android:text="@string/congestion_question"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="#F1ECEC"
+                    android:textSize="17sp"></TextView>
+
+                <RadioGroup
+                    android:id="@+id/congestionGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="50dp"
+                    android:checkedButton="@id/lowCongButton"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/lowCongButton"
+                        android:layout_width="90dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/radiobutton"
+                        android:button="@android:color/transparent"
+                        android:text="@string/low"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+                        android:textColor="@drawable/textcolors"
+                        android:textSize="15sp"></RadioButton>
+
+
+                    <RadioButton
+                        android:id="@+id/modCongButton"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/radiobutton"
+                        android:button="@android:color/transparent"
+                        android:text="@string/moderate"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                        android:textColor="@drawable/textcolors"
+                        android:textSize="15sp"></RadioButton>
+
+                    <RadioButton
+                        android:id="@+id/highCongButton"
+                        android:layout_width="90dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/radiobutton"
+                        android:button="@android:color/transparent"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/high"
+                        android:textAlignment="center"
+                        android:textColor="@drawable/textcolors"
+                        android:textSize="15sp"></RadioButton>
+                </RadioGroup>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:cardBackgroundColor="@color/background">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/background"
+                    android:gravity="top|center"
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_weight="1"
+                        android:text="@string/route_question"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/white"
+                        android:textSize="17sp"></TextView>
+
+                    <Spinner
+                        android:id="@+id/routeSpinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:dropDownSelector="@color/background"
+                        android:scrollbarSize="13dp"
+                        android:visibility="visible"
+                        tools:visibility="invisible"></Spinner>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="275dp"
+                app:cardBackgroundColor="@color/background">
+
+                <Button
+                    android:id="@+id/reportSubmitButton"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="125dp"
+                    android:background="@color/colorAccent"
+                    android:onClick="onReportClicked"
+                    android:text="@string/submit"
+                    android:textColor="#FBFBFC"></Button>
+
+            </androidx.cardview.widget.CardView>
+
+        </FrameLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
