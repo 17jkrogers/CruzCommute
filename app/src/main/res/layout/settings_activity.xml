@@ -1,14 +1,33 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="201dp"
+        android:layout_marginTop="60dp"
+        app:srcCompat="@drawable/ic_noun_day_and_night_48459" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="260dp"
+        android:fontFamily="@font/lobster_two"
+        android:text="Toggle to switch themes"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
 
     <Switch
         android:id="@+id/theme_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="360dp"
         android:layout_marginEnd="45dp"
         android:button="@color/selectedtext"
         android:buttonTint="@color/selectedtext"
@@ -20,7 +39,8 @@
         android:layout_height="match_parent"
         android:layout_alignBottom="@+id/theme_switch"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="360dp"
+        android:fontFamily="sans-serif-condensed"
         android:text="@string/theme_setting"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/white"
