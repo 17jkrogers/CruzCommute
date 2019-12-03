@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#504DAD</color>
     <color name="colorPrimaryDark">#B5B5DB</color>
-    <color name="colorAccent">#6378DB</color>
+    <color name="colorAccent">#5364B9</color>
+    <color name="inputcolor">#4B4D5AA7</color>
     <color name="dividerColor">#E4D7D7</color>
     <color name="background">#586BC7</color>
     <color name="card">#9793E2</color>
