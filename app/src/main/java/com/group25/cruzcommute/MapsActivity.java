@@ -236,7 +236,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 @Override
                 public boolean onMyLocationButtonClick() {
                     mMap.setMinZoomPreference(15);
-                    Log.d("DEBUG", "onmylocationbuttonclicklistener reached");
                     return false;
                 }
             };

@@ -21,7 +21,8 @@ import java.util.List;
 public class GeofenceBroadcastReceiver extends BroadcastReceiver {
 
     private static final String CHANNEL_ID = "report";
-    private Date date = null;
+    private static Date date = null;
+    private static boolean firstCheck = false;
 
     private Context ctx;
 
@@ -47,41 +48,50 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Date currentDate = new Date();
-        boolean timeCheck = true;
-        if (date != null) {
-            if (currentDate.getTime() - date.getTime() < 3600000){
-                timeCheck = false;
+        if (firstCheck) {
+            Date currentDate = new Date();
+            boolean timeCheck = true;
+            if (date != null) {
+                if (currentDate.getTime() - date.getTime() < 3600000){
+                    timeCheck = false;
+                }
+            } else {
+                date = currentDate;
+                Log.d("DEBUG", "first geofence trigger");
+            }
+
+            if (timeCheck) {
+                GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
+                if (geofencingEvent.hasError()) {
+                    Log.d("DEBUG", "geofence has error");
+                }
+
+                int geofenceTransition = geofencingEvent.getGeofenceTransition();
+
+                if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
+                    Log.d("DEBUG", "geofencing works motherfuckers");
+                    Intent mIntent = new Intent(context, ReportActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, mIntent, 0);
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                            .setSmallIcon(R.drawable.temp_notification_icon)
+                            .setContentTitle("Report Bus Arrival")
+                            .setContentText("Tap here to report bus slowdown")
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                            .setContentIntent(pendingIntent)
+                            .setAutoCancel(true);
+                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+                    notificationManager.notify(1, builder.build());
+                } else {
+                    Log.d("DEBUG", "wrong type of transition");
+                }
             }
         } else {
-            date = currentDate;
+            setFirstCheck();
         }
+    }
 
-        if (timeCheck) {
-            GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
-            if (geofencingEvent.hasError()) {
-                Log.d("DEBUG", "geofence has error");
-            }
-
-            int geofenceTransition = geofencingEvent.getGeofenceTransition();
-
-            if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
-                Log.d("DEBUG", "geofencing works motherfuckers");
-                Intent mIntent = new Intent(context, ReportActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, mIntent, 0);
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                        .setSmallIcon(R.drawable.temp_notification_icon)
-                        .setContentTitle("Report Bus Arrival")
-                        .setContentText("Tap here to report bus slowdown")
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                        .setContentIntent(pendingIntent)
-                        .setAutoCancel(true);
-                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-                notificationManager.notify(1, builder.build());
-            } else {
-                Log.d("DEBUG", "wrong type of transition");
-            }
-        }
+    public void setFirstCheck() {
+        firstCheck = true;
     }
 }
