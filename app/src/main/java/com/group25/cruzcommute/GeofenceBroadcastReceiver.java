@@ -54,6 +54,7 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
             if (date != null) {
                 if (currentDate.getTime() - date.getTime() < 3600000){
                     timeCheck = false;
+                    Log.d("DEBUG", "not enough time passed");
                 }
             } else {
                 date = currentDate;
