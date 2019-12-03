@@ -138,7 +138,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     100.0f)
                 .setExpirationDuration(-1)
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_EXIT)
-            .build());
+                .build());
         }
 
         geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
@@ -152,6 +152,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.d("DEBUG", "geofence not added");
+                        e.printStackTrace();
                     }
                 });
 
