@@ -81,7 +81,6 @@ public class ReportActivity extends AppCompatActivity {
                     ref.setValue(congLevel + oldVal.substring(oldVal.indexOf(",")));
                 }
                 else{
-                    String oldVal = dataSnapshot.getValue(String.class);
                     ref.setValue(congLevel + ", " + slowReport);
                 }
             }
@@ -90,8 +89,9 @@ public class ReportActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError dbErr) {
             }
         });
-
         Toast.makeText(this, "Thank you for submitting your report!", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
     }
 
 
