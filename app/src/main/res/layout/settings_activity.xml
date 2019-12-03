@@ -8,7 +8,7 @@
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="201dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         app:srcCompat="@drawable/ic_noun_day_and_night_48459" />
 
     <TextView
@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="260dp"
-        android:fontFamily="@font/lobster_two"
+        android:fontFamily="@font/pattaya"
         android:text="Toggle to switch themes"
         android:textAlignment="center"
         android:textColor="@color/white"
