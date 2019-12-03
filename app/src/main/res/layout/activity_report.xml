@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="190dp"
-                android:fontFamily="@font/lobster_two"
+                android:fontFamily="@font/pattaya"
                 android:text="Welcome, Make A Report"
                 android:textAlignment="center"
                 android:textColor="@color/white"
