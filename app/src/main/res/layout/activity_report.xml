@@ -2,7 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/background"
+    android:background="@drawable/gradient"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -27,11 +27,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="130dp"
+                android:layout_marginTop="150dp"
                 android:elevation="50dp"
-                app:cardBackgroundColor="@color/background"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardCornerRadius="9dp"
-                app:cardElevation="100dp">
+                app:cardElevation="0dp">
 
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
@@ -106,21 +106,34 @@
                         android:textSize="15sp"></RadioButton>
                 </RadioGroup>
 
+
+
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                app:cardBackgroundColor="@color/background">
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardElevation="0dp">
+
+                <EditText
+                    android:id="@+id/plain_text_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Input the slowdown or speedup here"
+                    android:inputType="text"
+                    android:textColor="@color/white"
+                    android:textColorHighlight="#FAFFFFFF"
+                    android:textColorHint="@color/white" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="50dp"
                     android:layout_marginEnd="20dp"
-                    android:background="@color/background"
+                    android:background="@android:color/transparent"
                     android:gravity="top|center"
                     android:orientation="horizontal"
                     android:visibility="visible"
@@ -152,7 +165,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="275dp"
-                app:cardBackgroundColor="@color/background">
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardElevation="0dp">
 
                 <Button
                     android:id="@+id/reportSubmitButton"

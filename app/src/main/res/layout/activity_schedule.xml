@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@drawable/gradient"
     android:orientation="vertical"
     tools:context=".ScheduleActivity">
 
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1.1"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif-condensed-medium"
             android:text="@string/route_num"
             android:textColor="@color/white"
             android:textSize="24sp"></TextView>
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif-condensed-medium"
             android:text="@string/avg_slowdown"
             android:textColor="@color/white"
             android:textSize="24sp"></TextView>
@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif-condensed-medium"
             android:text="@string/congestion"
             android:textColor="@color/white"
             android:textSize="24sp"></TextView>

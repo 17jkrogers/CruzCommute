@@ -1,55 +1,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
-
-    <Switch
-        android:id="@+id/location_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="45dp"
-        android:buttonTint="@color/selectedtext" />
-
-    <Switch
-        android:id="@+id/notifications_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/location_switch"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="45dp" />
+    android:background="@drawable/gradient">
 
     <Switch
         android:id="@+id/theme_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/notifications_switch"
-        android:layout_marginTop="130dp"
-        android:layout_marginEnd="45dp" />
-
-    <TextView
-        android:id="@+id/location_text"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignBottom="@+id/location_switch"
-        android:layout_marginStart="30dp"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="30dp"
-        android:text="@string/location_setting"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/notification_text"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignBottom="@+id/notifications_switch"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="80dp"
-        android:text="@string/notification_setting"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:layout_marginEnd="45dp"
+        android:button="@color/selectedtext"
+        android:buttonTint="@color/selectedtext"
+        android:checked="false" />
 
     <TextView
         android:id="@+id/theme_text"
@@ -57,9 +20,11 @@
         android:layout_height="match_parent"
         android:layout_alignBottom="@+id/theme_switch"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="30dp"
         android:text="@string/theme_setting"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/white"
         android:textSize="20sp" />
+
 
 </RelativeLayout>

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -29,11 +30,13 @@ public class ScheduleActivity extends AppCompatActivity {
     private ArrayList<Route> routeList;
     ListView routeView;
     boolean backFromPause = false;
+    EditText eText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
+        EditText eText = findViewById(R.id.plain_text_input);
         updateUIList();
     }
 
