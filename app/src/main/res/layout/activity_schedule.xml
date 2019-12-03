@@ -62,7 +62,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="20dp"
-        android:background="@color/colorAccent"
+        android:background="@drawable/roundbutton"
         android:onClick="transferReportActivity"
         android:text="@string/report"
         android:textColor="@color/white"></Button>
