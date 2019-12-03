@@ -112,7 +112,7 @@ public class ReportActivity extends AppCompatActivity {
                 }
 
                 adapter = new ArrayAdapter(ReportActivity.this, R.layout.spinner_item, routeNums);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                adapter.setDropDownViewResource(R.layout.spinner_dropdown);
 
                 routeSpinner.setAdapter(adapter);
             }
