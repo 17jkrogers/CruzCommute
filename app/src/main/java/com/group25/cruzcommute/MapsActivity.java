@@ -1,4 +1,5 @@
-//references: https://developers.google.com/maps/documentation/android-sdk/current-place-tutorial
+//references:   https://developers.google.com/maps/documentation/android-sdk/current-place-tutorial
+//              https://developer.android.com/training/location/geofencing
 package com.group25.cruzcommute;
 
 import androidx.annotation.NonNull;
@@ -7,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -16,7 +18,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingClient;
+import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,6 +29,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +41,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private GeofencingClient geofencingClient;
     private List<LatLng> coordinates = new ArrayList<>();
+    private ArrayList<Geofence> fences = new ArrayList<Geofence>();
+    private PendingIntent geofencePendingIntent = null;
 
 
     @Override
@@ -121,14 +129,56 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         coordinates.add(new LatLng(36.9548, -122.0576));
         coordinates.add(new LatLng(36.9545, -122.0623));
         coordinates.add(new LatLng(36.9525, -122.0654));
+        for(LatLng coord : coordinates){
+            fences.add(new Geofence.Builder()
+                .setRequestId(coord.toString())
+
+                .setCircularRegion(coord.latitude,
+                                    coord.longitude,
+                                    100.0f)
+                .setExpirationDuration(-1)
+                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_EXIT)
+            .build());
+        }
+
+        geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
+                .addOnSuccessListener(this, new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("DEBUG", "geofence added");
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG", "geofence not added");
+                    }
+                });
+
     }
 
+    private GeofencingRequest getGeofencingRequest(){
+        GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
+        builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_EXIT);
+        builder.addGeofences(fences);
+        return builder.build();
+    }
 
+    private PendingIntent getGeofencePendingIntent(){
+        if(geofencePendingIntent != null){
+            return geofencePendingIntent;
+        }
+        else{
+            Intent intent = new Intent(this, GeofenceBroadcastReceiver.class);
+            geofencePendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            return geofencePendingIntent;
+        }
+    }
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
      * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
+     * we just add a marker near Santa Cruz.
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
@@ -137,11 +187,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Santa Cruz and move the camera
-        //LatLng santa_cruz = new LatLng(36.974117, -122.030792);
-        //float zoom = 14.0f;
-        //mMap.addMarker(new MarkerOptions().position(santa_cruz).title("Marker in Santa Cruz"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(santa_cruz, zoom));
         mMap.setOnMyLocationButtonClickListener(onMyLocationButtonClickListener);
         enableMyLocationIfPermitted();
         mMap.getUiSettings().setZoomControlsEnabled(true);
@@ -173,19 +218,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        /*switch (requestCode) {
-            case LOCATION_PERMISSION_REQUEST_CODE: {*/
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d("DEBUG", "permission has been granted");
-                    enableMyLocationIfPermitted();
-                } else {
-                    Log.d("DEBUG", "permission has been denied");
-                    showDefaultLocation();
-                }
-            /*}
 
-        }*/
+        if(requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.d("DEBUG", "permission has been granted");
+                enableMyLocationIfPermitted();
+            } else {
+                Log.d("DEBUG", "permission has been denied");
+                showDefaultLocation();
+            }
+        }
     }
 
     private GoogleMap.OnMyLocationButtonClickListener onMyLocationButtonClickListener =
