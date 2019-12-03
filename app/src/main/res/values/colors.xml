@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#504DAD</color>
+    <color name="colorPrimary">#8C67E4</color>
     <color name="colorPrimaryDark">#B5B5DB</color>
     <color name="colorAccent">#5364B9</color>
     <color name="buttoncolor">#5364B9</color>
@@ -10,7 +10,7 @@
     <color name="card">#9793E2</color>
     <color name="white">#FFFFFF</color>
     <color name="selectedtext">#63DD63</color>
-    <color name="endbackground">#837BE2</color>
+    <color name="endbackground">#A67BE2</color>
     <color name ="colswitch">#63DD63</color>
 </resources>
 
