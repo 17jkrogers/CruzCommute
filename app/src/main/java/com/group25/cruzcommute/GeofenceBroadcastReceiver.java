@@ -74,7 +74,7 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, mIntent, 0);
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                            .setSmallIcon(R.drawable.temp_notification_icon)
+                            .setSmallIcon(R.drawable.ic_stat_name)
                             .setContentTitle("Report Bus Arrival")
                             .setContentText("Tap here to report bus slowdown")
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
