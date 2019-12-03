@@ -39,9 +39,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-    private GeofencingClient geofencingClient;
     private List<LatLng> coordinates = new ArrayList<>();
-    private ArrayList<Geofence> fences = new ArrayList<Geofence>();
+    private ArrayList<Geofence> fences = new ArrayList<>();
     private PendingIntent geofencePendingIntent = null;
 
 
@@ -52,8 +51,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
-        geofencingClient = LocationServices.getGeofencingClient(this);
+        new GeofenceBroadcastReceiver(this);
+        GeofencingClient geofencingClient = LocationServices.getGeofencingClient(this);
         coordinates.add(new LatLng(36.9707, -122.0249));
         coordinates.add(new LatLng(36.9690, -122.0277));
         coordinates.add(new LatLng(36.9688, -122.0289));
@@ -131,27 +132,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         coordinates.add(new LatLng(36.9525, -122.0654));
         for(LatLng coord : coordinates){
             fences.add(new Geofence.Builder()
-                .setRequestId(coord.toString())
-
-                .setCircularRegion(coord.latitude,
-                                    coord.longitude,
-                                    100.0f)
-                .setExpirationDuration(-1)
-                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_EXIT)
-                .build());
+                    .setRequestId(coord.toString())
+                    .setCircularRegion(coord.latitude, coord.longitude, 100.0f)
+                    .setExpirationDuration(-1)
+                    .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_EXIT)
+                    .build());
         }
 
         geofencingClient.addGeofences(getGeofencingRequest(), getGeofencePendingIntent())
                 .addOnSuccessListener(this, new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d("DEBUG", "geofence added");
+                        Log.d("DEBUG", "geofences added");
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("DEBUG", "geofence not added");
+                        Log.d("DEBUG", "geofences not added");
                         e.printStackTrace();
                     }
                 });
@@ -171,7 +169,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         else{
             Intent intent = new Intent(this, GeofenceBroadcastReceiver.class);
-            geofencePendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            geofencePendingIntent = PendingIntent.getBroadcast(this, 0, intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
             return geofencePendingIntent;
         }
     }
@@ -237,7 +236,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 @Override
                 public boolean onMyLocationButtonClick() {
                     mMap.setMinZoomPreference(15);
-                    Log.d("DEBUG", "onmylocationbuttonclicklistener reached");
                     return false;
                 }
             };
