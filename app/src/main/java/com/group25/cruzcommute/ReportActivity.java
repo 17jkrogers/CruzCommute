@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -32,6 +33,7 @@ public class ReportActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     Spinner routeSpinner;
     FirebaseDatabase db;
+    boolean numberEntered;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +54,36 @@ public class ReportActivity extends AppCompatActivity {
         RadioGroup selector = findViewById(R.id.congestionGroup);
         RadioButton selected = findViewById(selector.getCheckedRadioButtonId());
         String buttonText = selected.getText().toString();
+        EditText slowDown = findViewById(R.id.plain_text_input);
+        final String slowReport = slowDown.getText().toString();
+        int parsed;
+        numberEntered = !(slowReport.equals(""));
+        if(slowReport.length() > 3){
+            Toast.makeText(this, "Please enter a valid number between -60 and 60", Toast.LENGTH_LONG).show();
+            return;
+        }
+        try{
+            parsed = Integer.parseInt(slowReport);
+            if(parsed > 60 || parsed < -60){
+                Toast.makeText(this, "Please enter a valid number between -60 and 60", Toast.LENGTH_LONG).show();
+                return;
+            }
+        } catch(Exception e){
+            Toast.makeText(this, "Please enter a valid number between -60 and 60", Toast.LENGTH_LONG).show();
+            return;
+        }
         final String congLevel = buttonText.substring(0,1) + buttonText.substring(1).toLowerCase();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String oldVal = dataSnapshot.getValue(String.class);
-                ref.setValue(congLevel + oldVal.substring(oldVal.indexOf(",")));
+                if(!numberEntered) {
+                    String oldVal = dataSnapshot.getValue(String.class);
+                    ref.setValue(congLevel + oldVal.substring(oldVal.indexOf(",")));
+                }
+                else{
+                    String oldVal = dataSnapshot.getValue(String.class);
+                    ref.setValue(congLevel + ", " + slowReport);
+                }
             }
 
             @Override
