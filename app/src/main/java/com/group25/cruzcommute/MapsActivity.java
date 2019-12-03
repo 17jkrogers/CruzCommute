@@ -9,10 +9,12 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -190,7 +192,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMyLocationButtonClickListener(onMyLocationButtonClickListener);
         enableMyLocationIfPermitted();
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.setMinZoomPreference(11);
+
+        LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Location loc = null;
+        try {
+            loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        }catch(SecurityException e){
+            Log.e("ERROR", "Location could not be retrieved for map centering");
+        }
+        if(loc != null) {
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 14.0f));
+        }
+        else{
+            Log.e("ERROR", "Unable to animate camera");
+        }
     }
 
     private void enableMyLocationIfPermitted() {
@@ -235,7 +250,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             new GoogleMap.OnMyLocationButtonClickListener() {
                 @Override
                 public boolean onMyLocationButtonClick() {
-                    mMap.setMinZoomPreference(15);
                     return false;
                 }
             };
