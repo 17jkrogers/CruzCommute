@@ -1,3 +1,4 @@
+//references: https://developers.google.com/maps/documentation/android-sdk/current-place-tutorial
 package com.group25.cruzcommute;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -67,9 +69,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //mMap.addMarker(new MarkerOptions().position(santa_cruz).title("Marker in Santa Cruz"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(santa_cruz, zoom));
         mMap.setOnMyLocationButtonClickListener(onMyLocationButtonClickListener);
-        mMap.setOnMyLocationClickListener(onMyLocationClickListener);
         enableMyLocationIfPermitted();
-
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.setMinZoomPreference(11);
     }
@@ -78,11 +78,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
+            Log.d("DEBUG", "access not granted yet");
             ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_FINE_LOCATION},
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION/*,
+                            Manifest.permission.ACCESS_FINE_LOCATION*/},
                     LOCATION_PERMISSION_REQUEST_CODE);
         } else if (mMap != null) {
+            Log.d("DEBUG", "access already granted previously");
             mMap.setMyLocationEnabled(true);
         }
     }
@@ -97,18 +99,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case LOCATION_PERMISSION_REQUEST_CODE: {
+        /*switch (requestCode) {
+            case LOCATION_PERMISSION_REQUEST_CODE: {*/
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("DEBUG", "permission has been granted");
                     enableMyLocationIfPermitted();
                 } else {
+                    Log.d("DEBUG", "permission has been denied");
                     showDefaultLocation();
                 }
-                return;
-            }
+            /*}
 
-        }
+        }*/
     }
 
     private GoogleMap.OnMyLocationButtonClickListener onMyLocationButtonClickListener =
@@ -116,26 +119,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 @Override
                 public boolean onMyLocationButtonClick() {
                     mMap.setMinZoomPreference(15);
+                    Log.d("DEBUG", "onmylocationbuttonclicklistener reached");
                     return false;
-                }
-            };
-
-    private GoogleMap.OnMyLocationClickListener onMyLocationClickListener =
-            new GoogleMap.OnMyLocationClickListener() {
-                @Override
-                public void onMyLocationClick(@NonNull Location location) {
-
-                    mMap.setMinZoomPreference(12);
-
-                    CircleOptions circleOptions = new CircleOptions();
-                    circleOptions.center(new LatLng(location.getLatitude(),
-                            location.getLongitude()));
-
-                    circleOptions.radius(200);
-                    circleOptions.fillColor(Color.RED);
-                    circleOptions.strokeWidth(6);
-
-                    mMap.addCircle(circleOptions);
                 }
             };
 
