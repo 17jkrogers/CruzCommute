@@ -26,7 +26,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="150dp"
                 android:elevation="50dp"
                 app:cardBackgroundColor="@android:color/transparent"
@@ -46,7 +46,7 @@
                 <TextView
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="35dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="0dp"
                     android:background="#00100B2E"
@@ -107,7 +107,6 @@
                 </RadioGroup>
 
 
-
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -156,7 +155,7 @@
                         android:layout_weight="1"
                         android:dropDownSelector="@color/background"
                         android:scrollbarSize="13dp"
-                        android:visibility="visible"
+                        android:prompt="@string/app_name"
                         tools:visibility="invisible"></Spinner>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
