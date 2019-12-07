@@ -16,7 +16,6 @@ import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -40,7 +39,7 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private List<LatLng> coordinates = new ArrayList<>();
     private ArrayList<Geofence> fences = new ArrayList<>();
     private PendingIntent geofencePendingIntent = null;
@@ -145,13 +144,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .addOnSuccessListener(this, new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d("DEBUG", "geofences added");
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("DEBUG", "geofences not added");
                         e.printStackTrace();
                     }
                 });
@@ -190,38 +187,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         mMap.setOnMyLocationButtonClickListener(onMyLocationButtonClickListener);
-        enableMyLocationIfPermitted();
+        getLocationPermission();
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
         LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location loc = null;
         try {
+            assert locManager != null;
             loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        }catch(SecurityException e){
-            Log.e("ERROR", "Location could not be retrieved for map centering");
-        }
+        }catch(SecurityException ignored){ }
         if(loc != null) {
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 14.0f));
         }
-        else{
-            Log.e("ERROR", "Unable to animate camera");
+    }
+
+    private void getLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            if (mMap != null) {
+                mMap.setMyLocationEnabled(true);
+            }
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
     }
 
-    private void enableMyLocationIfPermitted() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            Log.d("DEBUG", "access not granted yet");
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION/*,
-                            Manifest.permission.ACCESS_FINE_LOCATION*/},
-                    LOCATION_PERMISSION_REQUEST_CODE);
-        } else if (mMap != null) {
-            Log.d("DEBUG", "access already granted previously");
-            mMap.setMyLocationEnabled(true);
-        }
-    }
     private void showDefaultLocation() {
         Toast.makeText(this, "Location permission not granted, " +
                         "showing default location",
@@ -233,15 +226,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-
-        if(requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Log.d("DEBUG", "permission has been granted");
-                enableMyLocationIfPermitted();
-            } else {
-                Log.d("DEBUG", "permission has been denied");
-                showDefaultLocation();
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getLocationPermission();
+                } else {
+                    showDefaultLocation();
+                }
             }
         }
     }
