@@ -17,6 +17,8 @@ public class CommuteSettings extends AppCompatActivity {
         setContentView(R.layout.settings_activity);
         Switch simpleswitch = (Switch) findViewById(R.id.theme_switch);
 
+        simpleswitch.setChecked(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
+
         simpleswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
