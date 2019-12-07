@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -54,23 +53,17 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
             if (date != null) {
                 if (currentDate.getTime() - date.getTime() < 3600000){
                     timeCheck = false;
-                    Log.d("DEBUG", "not enough time passed");
                 }
             } else {
                 date = currentDate;
-                Log.d("DEBUG", "first geofence trigger");
             }
 
             if (timeCheck) {
                 GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
-                if (geofencingEvent.hasError()) {
-                    Log.d("DEBUG", "geofence has error");
-                }
 
                 int geofenceTransition = geofencingEvent.getGeofenceTransition();
 
                 if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
-                    Log.d("DEBUG", "geofencing works motherfuckers");
                     Intent mIntent = new Intent(context, ReportActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, mIntent, 0);
@@ -83,8 +76,6 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
                             .setAutoCancel(true);
                     NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
                     notificationManager.notify(1, builder.build());
-                } else {
-                    Log.d("DEBUG", "wrong type of transition");
                 }
             }
         } else {
